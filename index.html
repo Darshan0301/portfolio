@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Darshan Lakade — Java Developer Portfolio</title>
+
+<style>
+:root{
+    --bg:#070a13;
+    --panel:#0955c7;
+    --muted:#98a2a6;
+    --accent:#00f27a;
+    --accent-2:#00c16b;
+    --glass: rgba(255,255,255,0.03);
+    --card-radius:16px;
+    --mono: "SFMono-Regular", ui-monospace, "Roboto Mono", monospace;
+    --ui: "Inter", system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+    margin:0;
+    font-family:var(--ui);
+    background: radial-gradient(900px 360px at 10% 10%, rgba(0,242,122,0.03), transparent 8%),
+                radial-gradient(600px 300px at 90% 90%, rgba(0,193,107,0.02), transparent 10%),
+                var(--bg);
+    color:#d7e7df;
+    padding:20px 20px 40px;
+}
+
+/* -------------------------------
+   2. LAYOUT
+--------------------------------*/
+.wrap{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:40px;
+}
+
+.sidebar{
+    position:sticky;
+    top:20px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:26px;
+    border-radius:var(--card-radius);
+    border:1px solid rgba(0,255,140,0.05);
+    box-shadow:0 10px 40px rgba(0,0,0,0.8);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar::-webkit-scrollbar{ width:6px; }
+.sidebar::-webkit-scrollbar-track{
+    background:rgba(255,255,255,0.05); border-radius:10px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+    background:var(--accent); border-radius:10px;
+}
+
+.photo-wrap{
+    width:150px;
+    height:150px;
+    margin:0 auto;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,0.8), 0 0 18px rgba(0,242,122,0.12);
+    border:3px solid var(--accent);
+    padding:2px;
+}
+.photo-wrap img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    border-radius:50%;
+}
+
+.name{ font-size:24px; margin-top:16px; text-align:center; }
+.role{ font-size:14px; margin-top:6px; text-align:center; color:#cfeee0; }
+
+.sidebar-title{
+    margin:25px 0 10px;
+    font-size:15px;
+    color:var(--accent);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.contact-list{ margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+
+.chip{
+    padding:10px 12px;
+    font-size:14px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    color:#d2e8dc;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:0.2s;
+}
+.chip:hover{ 
+    background:rgba(0,242,122,0.1);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0,242,122,0.3);
+}
+
+.icon{
+    width:18px;
+    height:18px;
+    vertical-align:middle;
+    filter: invert(67%) sepia(58%) saturate(658%) hue-rotate(105deg) brightness(102%) contrast(90%);
+    margin-left:10px;
+}
+
+.skills{
+    margin-top:12px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.skill{
+    background:var(--accent);
+    color:var(--bg);
+    padding:6px 12px;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+}
+.skill:hover{
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 6px 15px rgba(0,242,122,0.3);
+    background: var(--accent-2);
+}
+
+/* -------------------------------
+   4. MAIN PANELS
+--------------------------------*/
+.main{
+    display:flex;
+    flex-direction:column;
+    gap:40px; /* increased vertical spacing between panels */
+}
+
+.panel{
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
+    padding:40px; 
+    border-radius:18px;
+    border:1px solid rgba(0,255,140,0.03);
+    box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.panel:hover{
+    transform: translateY(-3px);
+    box-shadow:0 12px 40px rgba(0,242,122,0.2);
+}
+
+.panel p{ 
+    color:#cfeee0; 
+    line-height:1.8; 
+    margin-bottom:16px;
+}
+.panel p:last-child{ margin-bottom:0; }
+
+.panel h2{
+    margin:0 0 18px;
+    color:var(--accent);
+    font-size:22px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    padding-bottom:8px;
+}
+
+/* -------------------------------
+   5. PROJECT CARDS
+--------------------------------*/
+.project-card{
+    padding:20px;
+    border:1px solid rgba(255,255,255,0.03);
+    border-radius:12px;
+    background:var(--glass);
+    margin-bottom:25px;
+    transition:0.25s;
+}
+.project-card:hover{
+    background:rgba(0,242,122,0.08);
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 6px 20px rgba(0,242,122,0.25);
+}
+.item-title{ font-size:1.3em; font-weight:700; color:var(--accent); }
+.meta{ font-size:14px; color:var(--muted); margin-bottom:10px; }
+
+/* -------------------------------
+   6. CONTACT FORM
+--------------------------------*/
+.form{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    width:100%;
+}
+.input, textarea{
+    width:100%;
+    padding:14px 16px;
+    border-radius:10px;
+    border:1px solid rgba(0,242,122,0.12);
+    background:rgba(255,255,255,0.03);
+    color:#e7f7ee;
+    font-size:15px;
+    outline:none;
+    transition:0.2s;
+}
+.input:focus, textarea:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 8px rgba(0,242,122,0.2);
+}
+textarea{ height:140px; resize:none; }
+
+.btn{
+    background:var(--accent);
+    color:var(--bg);
+    font-weight:600;
+    padding:12px 22px;
+    border-radius:10px;
+    width:fit-content;
+    border:none;
+    cursor:pointer;
+    transition:0.2s;
+}
+.btn:hover{
+    background:var(--accent-2);
+    transform:translateY(-2px);
+}
+.feedback{ font-size:14px; font-weight:600; margin-left:10px; color:var(--muted); }
+
+/* -------------------------------
+   7. EDUCATION CARD INTERACTIVITY
+--------------------------------*/
+.sidebar .education-card{
+    background:rgba(255,255,255,0.03);
+    padding:12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.05);
+    font-size:13px;
+    line-height:1.4;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    cursor: pointer;
+}
+.sidebar .education-card:hover{
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(0,242,122,0.05);
+    box-shadow: 0 6px 18px rgba(0,242,122,0.25);
+}
+
+/* -------------------------------
+   8. RESPONSIVE
+--------------------------------*/
+@media(max-width:960px){
+    .wrap{ grid-template-columns:1fr; }
+    .sidebar{ position:static; max-height:none; }
+    body{ padding:15px; }
+}
+
+.resume-btn-container {
+    margin-top: 20px;
+}
+
+.resume-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.25s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+}
+
+.resume-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 18px rgba(0, 255, 200, 0.5);
+}
+
+<style>
+/* Panel styling */
+.panel {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
+    padding: 30px 25px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,255,140,0.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,242,122,0.2);
+}
+
+.panel h2 {
+    margin-bottom: 15px;
+    color: var(--accent);
+    font-size: 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 8px;
+}
+
+.panel p {
+    color: #cfeee0;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#contactForm input,
+#contactForm textarea {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,242,122,0.1);
+    background: rgba(255,255,255,0.03);
+    color: #e7f7ee;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0,242,122,0.2);
+}
+
+#contactForm textarea {
+    height: 120px;
+    resize: none;
+}
+
+#sendBtn {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    width: fit-content;
+}
+
+#sendBtn:hover {
+    background: var(--accent-2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,242,122,0.3);
+}
+
+/* Status message styling */
+#status {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+}
+</style>
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <aside class="sidebar">
+
+        <div class="photo-wrap">
+            <img src="assets/images/ProfileImg.png" alt="Darshan Lakade">
+        </div>
+
+        <div class="name" >Darshan Lakade</div>
+        <div class="role">Java Developer · Spring Boot · React.js</div>
+
+        <div class="sidebar-title">Contact</div>
+        <div class="contact-list">
+            <a class="chip" href="mailto:darshanlakade45@gmail.com">
+                <span>darshanlakade45@gmail.com</span>
+                <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gmail.svg">
+            </a>
+            <a class="chip" href="tel:+919356431932">
+                <span>9356431932</span>
+                <img class="icon" src="assets/icons/phone-504.svg">
+            </a>
+        </div>
+        
+        <div class="sidebar-title">Education</div>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:10px;">
+            <div class="education-card">
+                <strong style="color:var(--accent);">PG-DAC</strong><br>CDAC Pune<br>Feb 2025 – Aug 2025
+            </div>
+            <div class="education-card">
+                <strong style="color:var(--accent);">Bachelor of Technology</strong><br>MIT Academy of Engineering, Pune<br>2020–2024
+            </div>
+        </div>
+
+        <div class="sidebar-title">Social</div>
+        <div class="contact-list">
+            <a class="chip" href="https://linkedin.com/in/darshan-lakade-a30288231" target="_blank">
+                <span>LinkedIn</span>
+                <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg">
+            </a>
+            <a class="chip" href="https://github.com/Darshan0301" target="_blank">
+                <span>GitHub</span>
+                <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg">
+            </a>
+            <a class="chip" href="https://leetcode.com/u/darshanlakade45/" target="_blank">
+                <span>LeetCode</span>
+                <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/leetcode.svg">
+            </a>
+            <a class="chip" href="https://x.com/darshanlakade45" target="_blank">
+                <span>X </span>
+                <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg">
+            </a>
+        </div>
+
+        <div class="sidebar-title">Skills</div>
+        <div class="skills">
+            <span class="skill">Java</span>
+            <span class="skill">C/C++</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">SQL</span>
+            <span class="skill">React.js</span>
+            <span class="skill">C#</span>
+            <span class="skill">Docker</span>
+            <span class="skill">Linux</span>
+            <span class="skill">Git</span>
+        </div>
+    </aside>
+
+    <div class="main">
+
+        <section class="panel">
+            <h2>Professional Summary</h2>
+            <p>
+                Hello! I’m <strong>Darshan Lakade</strong>, a passionate Software Developer with a B.Tech in 
+                <strong>Electronics and Telecommunication Engineering</strong> from 
+                <strong>MIT Academy of Engineering, Pune</strong>.
+                I enjoy building clean, scalable, and reliable applications using 
+                <strong>C, C++, Java, C#, and JavaScript</strong>.
+                I work with technologies such as <strong>Spring, JDBC, Maven</strong>, and modern backend tools.
+            </p>
+            <p>
+                When I’m not coding, you’ll find me watching Anime, exploring movies, cheering for my favorite cricket teams,
+                or capturing moments through photography.
+                I’m always excited to collaborate, learn, and build meaningful projects that make an impact.
+            </p>
+
+            <div class="resume-btn-container">
+                <a href="https://drive.google.com/file/d/1Sm7L6Jk5WmVJ9FnV6gtGntYD3aa_YiP9/view?usp=drive_link" target="_blank" class="resume-btn">
+                View Resume
+                </a>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Projects Showcase</h2>
+            <div class="project-card">
+                <div class="item-title">Shopventory — Billing & Inventory System</div>
+                <div class="meta">Java · Spring Boot · Hibernate · MySQL · React.js · JWT</div>
+                <p>Designed and developed a full-stack system to streamline sales, product tracking, and invoicing.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Get in Touch</h2>
+            <p>Send me a direct message — I usually reply within the same day.</p>
+
+            <form id="contactForm" onsubmit="openEmail(event)">
+                <input type="text" id="subject" placeholder="Subject" required />
+                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+
+                <button type="submit" id="sendBtn">Send Message</button>
+            </form>
+
+        <p id="status"></p>
+
+        </section>
+
+    </div>
+</div>
+
+<script>
+function openEmail(e){
+    e.preventDefault();
+
+    const subject = encodeURIComponent(document.getElementById("subject").value || "Portfolio Message");
+    const message = encodeURIComponent(document.getElementById("message").value);
+
+    const body = `${message}`;
+    window.location.href = `mailto:darshanlakade45@gmail.com?subject=${subject}&body=${body}`;
+
+    document.getElementById("status").textContent = "Opening your email app...";
+}
+</script>
+
+</body>
+</html>
